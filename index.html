@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>POSTKRIPTON | Алгоритмическая торговля</title>
+    <!-- Cyberpunk / Tech Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #fafafa;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Анимированный фон с эффектом сетки */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(rgba(9, 9, 11, 0.9), rgba(9, 9, 11, 0.95)),
+                repeating-linear-gradient(0deg, rgba(59, 130, 246, 0.05) 0px, rgba(59, 130, 246, 0.05) 1px, transparent 1px, transparent 30px),
+                repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0px, rgba(59, 130, 246, 0.05) 1px, transparent 1px, transparent 30px);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        /* Glassmorphism карточки */
+        .glass-card {
+            background: rgba(24, 24, 27, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Текст с градиентом */
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: #3f3f46;
+            color: #fafafa;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #3b82f6;
+        }
+
+        /* Заголовки секций */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            color: #a1a1aa;
+            font-size: 1.2rem;
+            margin-bottom: 48px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+        }
+
+        /* Сетка стратегий */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .strategy-card {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            padding: 28px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .strategy-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-5px);
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fafafa;
+            margin: 16px 0 8px;
+        }
+
+        .badge {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .section-title { font-size: 2rem; }
+            .hero { min-height: auto; padding: 60px 0; text-align: center; }
+            .hero-buttons { justify-content: center; }
+            .glass-card { padding: 24px; }
+        }
+
+        /* FAQ аккордеон */
+        .faq-item {
+            border-bottom: 1px solid #27272a;
+            padding: 20px 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #a1a1aa;
+            padding-right: 20px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 16px;
+        }
+
+        /* Статистика */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Утилиты */
+        .flex { display: flex; gap: 16px; flex-wrap: wrap; }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 24px; }
+        .mb-2 { margin-bottom: 8px; }
+        .text-center { text-align: center; }
+        .text-gray { color: #a1a1aa; }
+        .text-green { color: #10b981; }
+        .text-red { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="cyber-bg"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div style="max-width: 800px;">
+                    <div class="badge mb-2">🚀 Алгоритмический трейдинг нового поколения</div>
+                    <h1 class="section-title" style="font-size: 3.5rem; line-height: 1.2;">
+                        <span class="gradient-text">POSTKRIPTON</span><br>
+                        От сигналов к полной автоматизации
+                    </h1>
+                    <p class="section-subtitle" style="margin-bottom: 32px;">
+                        Готовые стратегии для TradingView с прямым подключением к Binance, Bybit, OKX. 
+                        Торгуй 24/7 без эмоций.
+                    </p>
+                    <div class="flex hero-buttons">
+                        <a href="#strategies" class="btn btn-primary">📊 Смотреть стратегии</a>
+                        <a href="https://t.me/postkripton_bot" class="btn btn-outline">🤖 Попробовать бота</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Статистика -->
+        <section class="container" style="margin-bottom: 80px;">
+            <div class="glass-card">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">10-45%</div>
+                        <div class="text-gray">Средняя доходность / мес</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">≤15%</div>
+                        <div class="text-gray">Макс. просадка портфеля</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">58-72%</div>
+                        <div class="text-gray">Винрейт стратегий</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="text-gray">Крупнейшие биржи</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Как это работает -->
+        <section class="container" style="margin-bottom: 80px;">
+            <h2 class="section-title">Как это <span class="gradient-text">работает</span></h2>
+            <div class="strategy-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="glass-card" style="padding: 24px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">1️⃣</div>
+                    <h3>Выбор стратегии</h3>
+                    <p class="text-gray">Подбираешь алгоритм под свой стиль и капитал из нашего портфеля.</p>
+                </div>
+                <div class="glass-card" style="padding: 24px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">2️⃣</div>
+                    <h3>Установка скрипта</h3>
+                    <p class="text-gray">Получаешь код PineScript, добавляешь в TradingView одним кликом.</p>
+                </div>
+                <div class="glass-card" style="padding: 24px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">3️⃣</div>
+                    <h3>Подключение к бирже</h3>
+                    <p class="text-gray">Настраиваешь алерт в нашем боте или напрямую к Binance/Bybit/OKX API.</p>
+                </div>
+                <div class="glass-card" style="padding: 24px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">4️⃣</div>
+                    <h3>Автоторговля</h3>
+                    <p class="text-gray">Система сама открывает и закрывает сделки 24/7. Ты просто следишь за прибылью.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Стратегии -->
+        <section id="strategies" class="container" style="margin-bottom: 80px;">
+            <h2 class="section-title">Портфель <span class="gradient-text">стратегий</span></h2>
+            <p class="section-subtitle">От трендовых до высокочастотных скальперов. Цена стартует от 50 000 ₽.</p>
+            
+            <div class="strategy-grid">
+                <!-- Карточка 1 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #a78bfa;">Трендовая</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">AdaptorMonstr Pro</h3>
+                    <p class="text-gray" style="min-height: 60px;">Мультифакторный вход в Long/Short с жесткими SL/TP. Основа портфеля.</p>
+                    <div class="price-tag">от 55 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+                <!-- Карточка 2 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #10b981;">Скальпинг</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Crypto Sniper</h3>
+                    <p class="text-gray" style="min-height: 60px;">Высокочастотный скальпинг на 5-15 мин. Для любителей экшена и быстрых профитов.</p>
+                    <div class="price-tag">от 65 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+                <!-- Карточка 3 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #f59e0b;">Среднесрок</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Trend Surfer</h3>
+                    <p class="text-gray" style="min-height: 60px;">Работа на 4ч/1д таймфреймах. Минимум шума, максимум трендового движения.</p>
+                    <div class="price-tag">от 50 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+                <!-- Карточка 4 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #ef4444;">Фьючерсы</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Quantum Scalper</h3>
+                    <p class="text-gray" style="min-height: 60px;">Специализация на BYBIT Perps. Агрессивный вход по импульсу на 1-3 мин.</p>
+                    <div class="price-tag">от 75 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+                <!-- Карточка 5 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #8b5cf6;">Уровни</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Golden Ratio</h3>
+                    <p class="text-gray" style="min-height: 60px;">Вход от ключевых уровней Фибоначчи. Отлично ловит развороты на 15м/1ч.</p>
+                    <div class="price-tag">от 60 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+                <!-- Карточка 6 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #06b6d4;">Объемы</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Volume Explosion</h3>
+                    <p class="text-gray" style="min-height: 60px;">Анализ аномальных объемов. Вход при подтверждении крупным игроком.</p>
+                    <div class="price-tag">от 70 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+                <!-- Карточка 7 -->
+                <div class="strategy-card">
+                    <div class="badge" style="background: #ec4899;">AI Fusion</div>
+                    <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">AI Fusion</h3>
+                    <p class="text-gray" style="min-height: 60px;">Гибрид нейросетевых сигналов и классического теханализа. Универсальный солдат.</p>
+                    <div class="price-tag">от 85 000 ₽</div>
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="container" style="margin-bottom: 80px;">
+            <h2 class="section-title">Частые <span class="gradient-text">вопросы</span></h2>
+            <div class="glass-card">
+                <div class="faq-item">
+                    <div class="faq-question">Какие биржи поддерживаются? <span>+</span></div>
+                    <div class="faq-answer">Все стратегии работают через TradingView алерты и могут быть подключены к Binance, Bybit (USDT Perpetual) и OKX через API или нашего бота-исполнителя.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Сколько нужно денег для старта? <span>+</span></div>
+                    <div class="faq-answer">Рекомендуемый депозит от 1000 USDT. Это позволяет комфортно держать просадку и копить позиции. Для скальперов (Crypto Sniper) желательно от 500 USDT.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Как часто приходят сигналы? <span>+</span></div>
+                    <div class="faq-answer">Зависит от рынка. Трендовые стратегии дают 1-3 сделки в день. Скальперы могут давать 20-50 сигналов в сутки в периоды высокой волатильности.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Что входит в стоимость? <span>+</span></div>
+                    <div class="faq-answer">Вы получаете эксклюзивный код PineScript (защищенный), инструкцию по установке и подключению к бирже, а также 1 месяц поддержки в Telegram.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты -->
+        <section class="container text-center" style="margin-bottom: 60px;">
+            <div class="glass-card">
+                <h2 class="section-title" style="margin-bottom: 8px;">Готов к автоматизации?</h2>
+                <p class="text-gray" style="margin-bottom: 24px;">Напиши нам для подбора стратегии и уточнения деталей.</p>
+                <div class="flex" style="justify-content: center;">
+                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 48px;">💬 Написать в Telegram</a>
+                    <a href="https://t.me/postkripton_bot" class="btn btn-outline" style="font-size: 1.2rem; padding: 16px 48px;">🤖 Перейти в бот</a>
+                </div>
+                <p class="text-gray mt-4" style="font-size: 0.9rem;">© POSTKRIPTON 2025. Алгоритмические стратегии для профессионального трейдинга.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Простой аккордеон для FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                const span = question.querySelector('span');
+                span.textContent = faqItem.classList.contains('active') ? '−' : '+';
+            });
+        });
+    </script>
+</body>
+</html>
