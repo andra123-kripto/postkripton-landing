@@ -121,11 +121,61 @@
             padding: 80px 0;
         }
 
+        /* Улучшенные сетки для мобильных */
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
         .strategy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
             margin-top: 40px;
+        }
+
+        /* Мобильная версия: 2 колонки */
+        @media (max-width: 768px) {
+            .how-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .strategy-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            /* Последний нечётный элемент в портфеле (7-й) занимает всю ширину и центрируется */
+            .strategy-grid > :last-child:nth-child(odd) {
+                grid-column: span 2;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Для очень маленьких экранов (до 480px) можно ещё уменьшить отступы */
+        @media (max-width: 480px) {
+            .how-grid {
+                gap: 12px;
+            }
+            .strategy-grid {
+                gap: 12px;
+            }
+        }
+
+        .how-card {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            padding: 28px 20px;
+            transition: transform 0.2s, border-color 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .strategy-card {
@@ -136,8 +186,11 @@
             border-radius: 20px;
             padding: 28px;
             transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
         }
 
+        .how-card:hover,
         .strategy-card:hover {
             border-color: #3b82f6;
             transform: translateY(-5px);
@@ -158,6 +211,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             display: inline-block;
+            align-self: flex-start;
         }
 
         @media (max-width: 768px) {
@@ -214,7 +268,7 @@
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* Модальное окно для выбора способа связи */
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -264,7 +318,6 @@
         }
         .footer-link:hover { color: white; }
 
-        /* Исправление горизонтального скролла */
         img, video, canvas, svg {
             max-width: 100%;
             height: auto;
@@ -272,6 +325,12 @@
         pre, code {
             white-space: pre-wrap;
             word-break: break-word;
+        }
+
+        .flex {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -283,7 +342,7 @@
         <section class="hero">
             <div class="container">
                 <div style="max-width: 800px;">
-                    <div class="badge mb-2">🚀 Алгоритмический трейдинг нового поколения</div>
+                    <div class="badge" style="margin-bottom: 8px;">🚀 Алгоритмический трейдинг нового поколения</div>
                     <h1 class="section-title" style="font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.2;">
                         <span class="gradient-text">POSTKRIPTON</span><br>
                         От сигналов к полной автоматизации
@@ -292,7 +351,7 @@
                         Готовые стратегии для TradingView с прямым подключением к Binance, Bybit, OKX. 
                         Торгуй 24/7 без эмоций.
                     </p>
-                    <div class="flex hero-buttons" style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <div class="flex hero-buttons">
                         <a href="#strategies" class="btn btn-primary">📊 Смотреть стратегии</a>
                         <a href="https://t.me/quantumprognosisbot" class="btn btn-outline">🤖 Перейти в бот</a>
                     </div>
@@ -324,34 +383,34 @@
             </div>
         </section>
 
-        <!-- Как это работает -->
+        <!-- Как это работает (улучшенная сетка) -->
         <section class="container" style="margin-bottom: 80px;">
             <h2 class="section-title">Как это <span class="gradient-text">работает</span></h2>
-            <div class="strategy-grid" style="grid-template-columns: repeat(4, 1fr);">
-                <div class="glass-card" style="padding: 24px;">
+            <div class="how-grid">
+                <div class="how-card">
                     <div style="font-size: 2rem; margin-bottom: 16px;">1️⃣</div>
                     <h3>Выбор стратегии</h3>
-                    <p class="text-gray">Подбираешь алгоритм под свой стиль и капитал из нашего портфеля.</p>
+                    <p class="text-gray" style="margin-top: 8px;">Подбираешь алгоритм под свой стиль и капитал из нашего портфеля.</p>
                 </div>
-                <div class="glass-card" style="padding: 24px;">
+                <div class="how-card">
                     <div style="font-size: 2rem; margin-bottom: 16px;">2️⃣</div>
                     <h3>Установка скрипта</h3>
-                    <p class="text-gray">Получаешь код PineScript, добавляешь в TradingView одним кликом.</p>
+                    <p class="text-gray" style="margin-top: 8px;">Получаешь код PineScript, добавляешь в TradingView одним кликом.</p>
                 </div>
-                <div class="glass-card" style="padding: 24px;">
+                <div class="how-card">
                     <div style="font-size: 2rem; margin-bottom: 16px;">3️⃣</div>
                     <h3>Подключение к бирже</h3>
-                    <p class="text-gray">Настраиваешь алерт в нашем боте или напрямую к Binance/Bybit/OKX API.</p>
+                    <p class="text-gray" style="margin-top: 8px;">Настраиваешь алерт в нашем боте или напрямую к Binance/Bybit/OKX API.</p>
                 </div>
-                <div class="glass-card" style="padding: 24px;">
+                <div class="how-card">
                     <div style="font-size: 2rem; margin-bottom: 16px;">4️⃣</div>
                     <h3>Автоторговля</h3>
-                    <p class="text-gray">Система сама открывает и закрывает сделки 24/7. Ты просто следишь за прибылью.</p>
+                    <p class="text-gray" style="margin-top: 8px;">Система сама открывает и закрывает сделки 24/7. Ты просто следишь за прибылью.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Стратегии -->
+        <!-- Стратегии (улучшенная сетка) -->
         <section id="strategies" class="container" style="margin-bottom: 80px;">
             <h2 class="section-title">Портфель <span class="gradient-text">стратегий</span></h2>
             <p class="section-subtitle">От трендовых до высокочастотных скальперов. Цена стартует от 50 000 ₽.</p>
@@ -504,7 +563,6 @@
             if (e.target === modal) closeModal();
         });
 
-        // Закрытие по Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
