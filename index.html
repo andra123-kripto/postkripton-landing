@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>POSTKRIPTON | Алгоритмическая торговля</title>
-    <!-- Cyberpunk / Tech Style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,9 +20,10 @@
             color: #fafafa;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
         }
 
-        /* Анимированный фон с эффектом сетки */
         .cyber-bg {
             position: fixed;
             top: 0;
@@ -43,9 +43,9 @@
             margin: 0 auto;
             padding: 0 24px;
             position: relative;
+            width: 100%;
         }
 
-        /* Glassmorphism карточки */
         .glass-card {
             background: rgba(24, 24, 27, 0.7);
             backdrop-filter: blur(12px);
@@ -54,9 +54,9 @@
             border-radius: 24px;
             padding: 32px;
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            width: 100%;
         }
 
-        /* Текст с градиентом */
         .gradient-text {
             background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
             -webkit-background-clip: text;
@@ -65,7 +65,6 @@
             font-weight: 800;
         }
 
-        /* Кнопки */
         .btn {
             display: inline-block;
             padding: 14px 32px;
@@ -102,7 +101,6 @@
             border-color: #3b82f6;
         }
 
-        /* Заголовки секций */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -116,7 +114,6 @@
             margin-bottom: 48px;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 90vh;
             display: flex;
@@ -124,7 +121,6 @@
             padding: 80px 0;
         }
 
-        /* Сетка стратегий */
         .strategy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -164,7 +160,6 @@
             display: inline-block;
         }
 
-        /* Адаптивность */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             .section-title { font-size: 2rem; }
@@ -173,7 +168,6 @@
             .glass-card { padding: 24px; }
         }
 
-        /* FAQ аккордеон */
         .faq-item {
             border-bottom: 1px solid #27272a;
             padding: 20px 0;
@@ -198,7 +192,6 @@
             margin-top: 16px;
         }
 
-        /* Статистика */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -221,15 +214,65 @@
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* Утилиты */
-        .flex { display: flex; gap: 16px; flex-wrap: wrap; }
-        .mt-2 { margin-top: 8px; }
-        .mt-4 { margin-top: 24px; }
-        .mb-2 { margin-bottom: 8px; }
-        .text-center { text-align: center; }
-        .text-gray { color: #a1a1aa; }
-        .text-green { color: #10b981; }
-        .text-red { color: #ef4444; }
+        /* Модальное окно для выбора способа связи */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #18181b;
+            border: 1px solid #3f3f46;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            justify-content: center;
+        }
+        .btn-telegram { background: #2AABEE; }
+        .btn-max { background: #6C4DF5; }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            justify-content: center;
+            margin: 24px 0 16px;
+        }
+        .footer-link {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: white; }
+
+        /* Исправление горизонтального скролла */
+        img, video, canvas, svg {
+            max-width: 100%;
+            height: auto;
+        }
+        pre, code {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
     </style>
 </head>
 <body>
@@ -241,7 +284,7 @@
             <div class="container">
                 <div style="max-width: 800px;">
                     <div class="badge mb-2">🚀 Алгоритмический трейдинг нового поколения</div>
-                    <h1 class="section-title" style="font-size: 3.5rem; line-height: 1.2;">
+                    <h1 class="section-title" style="font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.2;">
                         <span class="gradient-text">POSTKRIPTON</span><br>
                         От сигналов к полной автоматизации
                     </h1>
@@ -249,9 +292,9 @@
                         Готовые стратегии для TradingView с прямым подключением к Binance, Bybit, OKX. 
                         Торгуй 24/7 без эмоций.
                     </p>
-                    <div class="flex hero-buttons">
+                    <div class="flex hero-buttons" style="display: flex; gap: 16px; flex-wrap: wrap;">
                         <a href="#strategies" class="btn btn-primary">📊 Смотреть стратегии</a>
-                        <a href="https://t.me/postkripton_bot" class="btn btn-outline">🤖 Попробовать бота</a>
+                        <a href="https://t.me/quantumprognosisbot" class="btn btn-outline">🤖 Перейти в бот</a>
                     </div>
                 </div>
             </div>
@@ -320,7 +363,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">AdaptorMonstr Pro</h3>
                     <p class="text-gray" style="min-height: 60px;">Мультифакторный вход в Long/Short с жесткими SL/TP. Основа портфеля.</p>
                     <div class="price-tag">от 55 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
                 <!-- Карточка 2 -->
                 <div class="strategy-card">
@@ -328,7 +371,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Crypto Sniper</h3>
                     <p class="text-gray" style="min-height: 60px;">Высокочастотный скальпинг на 5-15 мин. Для любителей экшена и быстрых профитов.</p>
                     <div class="price-tag">от 65 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
                 <!-- Карточка 3 -->
                 <div class="strategy-card">
@@ -336,7 +379,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Trend Surfer</h3>
                     <p class="text-gray" style="min-height: 60px;">Работа на 4ч/1д таймфреймах. Минимум шума, максимум трендового движения.</p>
                     <div class="price-tag">от 50 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
                 <!-- Карточка 4 -->
                 <div class="strategy-card">
@@ -344,7 +387,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Quantum Scalper</h3>
                     <p class="text-gray" style="min-height: 60px;">Специализация на BYBIT Perps. Агрессивный вход по импульсу на 1-3 мин.</p>
                     <div class="price-tag">от 75 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
                 <!-- Карточка 5 -->
                 <div class="strategy-card">
@@ -352,7 +395,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Golden Ratio</h3>
                     <p class="text-gray" style="min-height: 60px;">Вход от ключевых уровней Фибоначчи. Отлично ловит развороты на 15м/1ч.</p>
                     <div class="price-tag">от 60 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
                 <!-- Карточка 6 -->
                 <div class="strategy-card">
@@ -360,7 +403,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">Volume Explosion</h3>
                     <p class="text-gray" style="min-height: 60px;">Анализ аномальных объемов. Вход при подтверждении крупным игроком.</p>
                     <div class="price-tag">от 70 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
                 <!-- Карточка 7 -->
                 <div class="strategy-card">
@@ -368,7 +411,7 @@
                     <h3 style="font-size: 1.5rem; margin: 12px 0 4px;">AI Fusion</h3>
                     <p class="text-gray" style="min-height: 60px;">Гибрид нейросетевых сигналов и классического теханализа. Универсальный солдат.</p>
                     <div class="price-tag">от 85 000 ₽</div>
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Получить</a>
+                    <button class="btn btn-primary open-modal" style="width: 100%; margin-top: 16px;">Получить</button>
                 </div>
             </div>
         </section>
@@ -396,28 +439,88 @@
             </div>
         </section>
 
-        <!-- Контакты -->
-        <section class="container text-center" style="margin-bottom: 60px;">
+        <!-- Контакты и футер -->
+        <section class="container text-center" style="margin-bottom: 40px;">
             <div class="glass-card">
                 <h2 class="section-title" style="margin-bottom: 8px;">Готов к автоматизации?</h2>
                 <p class="text-gray" style="margin-bottom: 24px;">Напиши нам для подбора стратегии и уточнения деталей.</p>
-                <div class="flex" style="justify-content: center;">
-                    <a href="https://t.me/Kuba4i" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 48px;">💬 Написать в Telegram</a>
-                    <a href="https://t.me/postkripton_bot" class="btn btn-outline" style="font-size: 1.2rem; padding: 16px 48px;">🤖 Перейти в бот</a>
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+                    <button class="btn btn-primary open-modal" style="font-size: 1.2rem; padding: 16px 48px;">💬 Написать в Telegram</button>
+                    <a href="https://t.me/quantumprognosisbot" class="btn btn-outline" style="font-size: 1.2rem; padding: 16px 48px;">🤖 Перейти в бот</a>
                 </div>
-                <p class="text-gray mt-4" style="font-size: 0.9rem;">© POSTKRIPTON 2025. Алгоритмические стратегии для профессионального трейдинга.</p>
+                <!-- Социальные ссылки -->
+                <div class="footer-links">
+                    <a href="https://vk.ru/postkripton" class="footer-link">VK</a>
+                    <a href="https://t.me/postkripton" class="footer-link">Telegram канал</a>
+                    <a href="https://max.ru/join/Hk2paerbTC-8ORtlqsj8UI0r1Q0CwHkv-n7IHoYU2LY" class="footer-link">Max</a>
+                    <a href="https://dzen.ru/postkripton" class="footer-link">Дзен</a>
+                </div>
+                <p class="text-gray" style="font-size: 0.9rem;">© POSTKRIPTON 2025. Алгоритмические стратегии для профессионального трейдинга.</p>
             </div>
         </section>
     </main>
 
+    <!-- Модальное окно выбора связи -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 16px;">Выбери способ связи</h3>
+            <p class="text-gray" style="margin-bottom: 16px;">Мы на связи в Telegram и Max. Выбери удобный мессенджер.</p>
+            <div class="modal-buttons">
+                <a href="https://t.me/Kuba4i" class="btn btn-primary btn-telegram" style="background: #2AABEE;">Telegram</a>
+                <a href="https://max.ru/u/f9LHodD0cOLoCa7HmQU5yTU0lIiLSUOI74YOlwGU73wOJ0-p7xTe73-BqB0" class="btn btn-primary btn-max" style="background: #6C4DF5;">Max</a>
+            </div>
+            <button class="btn btn-outline" onclick="closeModal()" style="margin-top: 20px; width: 100%;">Отмена</button>
+        </div>
+    </div>
+
     <script>
-        // Простой аккордеон для FAQ
+        // Аккордеон FAQ
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const faqItem = question.parentElement;
                 faqItem.classList.toggle('active');
                 const span = question.querySelector('span');
                 span.textContent = faqItem.classList.contains('active') ? '−' : '+';
+            });
+        });
+
+        // Модальное окно
+        const modal = document.getElementById('contactModal');
+        const openButtons = document.querySelectorAll('.open-modal');
+        
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        openButtons.forEach(btn => btn.addEventListener('click', openModal));
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
