@@ -85,9 +85,9 @@
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
-        .modal-content { background: #18181b; border: 1px solid #3f3f46; border-radius: 24px; padding: 32px; max-width: 800px; width: 90%; text-align: center; }
+        .modal-content { background: #18181b; border: 1px solid #3f3f46; border-radius: 24px; padding: 32px; max-width: 800px; width: 90%; text-align: center; position: relative; }
         .modal-buttons { display: flex; gap: 16px; margin-top: 24px; justify-content: center; flex-wrap: wrap; }
-        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; color: #a1a1aa; }
+        .close-modal { position: absolute; top: 16px; right: 20px; font-size: 28px; cursor: pointer; color: #a1a1aa; background: none; border: none; }
 
         .footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; justify-content: center; margin: 24px 0 16px; }
         .footer-link { color: #a1a1aa; text-decoration: none; transition: color 0.2s; }
@@ -136,7 +136,7 @@
             </div>
         </section>
 
-        <!-- Как это работает (ИСПРАВЛЕНО) -->
+        <!-- Как это работает -->
         <section class="container" style="margin-bottom: 80px;">
             <h2 class="section-title">Как это <span class="gradient-text">работает</span></h2>
             <div class="how-grid">
@@ -181,7 +181,7 @@
             </div>
         </section>
 
-        <!-- Что ты получаешь после покупки (инструкция) -->
+        <!-- Что ты получаешь после покупки -->
         <section class="container" style="margin-bottom: 80px;">
             <div class="glass-card">
                 <h2 class="section-title" style="text-align:center;">После покупки <span class="gradient-text">ты получишь</span></h2>
@@ -213,7 +213,6 @@
             <h2 class="section-title">Портфель <span class="gradient-text">стратегий</span></h2>
             <p class="section-subtitle">От трендовых до высокочастотных скальперов. Цена стартует от 50 000 ₽.</p>
             <div class="strategy-grid">
-                <!-- Карточки стратегий (без изменений) -->
                 <div class="strategy-card"><div class="badge" style="background:#a78bfa;">Трендовая</div><h3 style="font-size:1.5rem; margin:12px 0 4px;">AdaptorMonstr Pro</h3><p class="text-gray" style="min-height:60px;">Мультифакторный вход в Long/Short с жесткими SL/TP. Основа портфеля.</p><div class="price-tag">от 55 000 ₽</div><button class="btn btn-primary open-modal" style="width:100%; margin-top:16px;">Получить</button></div>
                 <div class="strategy-card"><div class="badge" style="background:#10b981;">Скальпинг</div><h3 style="font-size:1.5rem; margin:12px 0 4px;">Crypto Sniper</h3><p class="text-gray" style="min-height:60px;">Высокочастотный скальпинг на 5-15 мин. Для любителей экшена и быстрых профитов.</p><div class="price-tag">от 65 000 ₽</div><button class="btn btn-primary open-modal" style="width:100%; margin-top:16px;">Получить</button></div>
                 <div class="strategy-card"><div class="badge" style="background:#f59e0b;">Среднесрок</div><h3 style="font-size:1.5rem; margin:12px 0 4px;">Trend Surfer</h3><p class="text-gray" style="min-height:60px;">Работа на 4ч/1д таймфреймах. Минимум шума, максимум трендового движения.</p><div class="price-tag">от 50 000 ₽</div><button class="btn btn-primary open-modal" style="width:100%; margin-top:16px;">Получить</button></div>
@@ -258,6 +257,7 @@
     <!-- Модальное окно выбора связи -->
     <div class="modal" id="contactModal">
         <div class="modal-content">
+            <span class="close-modal" onclick="closeContactModal()">&times;</span>
             <h3 style="margin-bottom: 16px;">Выбери способ связи</h3>
             <p class="text-gray" style="margin-bottom: 16px;">Мы на связи в Telegram и Max. Выбери удобный мессенджер.</p>
             <div class="modal-buttons">
@@ -268,12 +268,21 @@
         </div>
     </div>
 
-    <!-- Модальное окно с видео -->
+    <!-- Модальное окно с видео (Дзен iframe) -->
     <div class="modal" id="videoModal">
-        <div class="modal-content" style="padding: 16px; position: relative;">
+        <div class="modal-content" style="padding: 16px; max-width: 900px;">
             <span class="close-modal" onclick="closeVideoModal()">&times;</span>
-            <!-- ЗАМЕНИ ССЫЛКУ НА СВОЁ ВИДЕО -->
-            <iframe width="100%" height="450" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Демонстрация стратегии" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>
+            <!-- Вставленный код iframe от Дзена -->
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
+                <iframe 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                    src="https://dzen.ru/embed/o4kYy_ckMAAA?from_block=partner&from=zen&mute=1&autoplay=1&tv=0" 
+                    allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    allowfullscreen>
+                </iframe>
+            </div>
             <p class="text-gray" style="margin-top: 16px;">Пример работы стратегии AdaptorMonstr Pro на BTC/USDT (1ч)</p>
         </div>
     </div>
